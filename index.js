@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken")
 const authMiddleWare = require("./middlwares/authMiddleware")
 const adminMiddleWare = require("./middlwares/adminMiddleware")
 
-//create the server
+
 const app = express();
 
 let corsOptions = {
@@ -20,7 +20,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 
-//get all todos
+
 app.get("/todos", authMiddleWare, async (req, res) => {
     try {
         const todos = await Todo.find()
@@ -32,7 +32,7 @@ app.get("/todos", authMiddleWare, async (req, res) => {
     }
 });
 
-// create new todo
+
 app.post("/todos", authMiddleWare, adminMiddleWare, async (req, res) => {
     try {
         console.log("post todods", req.user.email)
@@ -51,7 +51,7 @@ app.post("/todos", authMiddleWare, adminMiddleWare, async (req, res) => {
     }
 });
 
-// get todo details
+
 
 app.get("/todos/:id", async (req, res) => {
     try {
@@ -64,7 +64,7 @@ app.get("/todos/:id", async (req, res) => {
 
 });
 
-// Update specific todo
+
 
 app.put("/todos/:id", async (req, res) => {
     try {
@@ -88,7 +88,7 @@ app.put("/todos/:id", async (req, res) => {
     }
 });
 
-//Delete user
+
 
 app.delete("/todos/:id", async (req, res) => {
     try {
@@ -193,7 +193,7 @@ app.get("/profile", authMiddleWare, async (req, res) => {
     }
 })
 
-//Connect to Database and start the server in success state
+
 mongoose.connect("mongodb://localhost:27017/todos-app")
     .then(() => {
         console.log("Connected to MongoDb...")
