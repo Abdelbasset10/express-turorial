@@ -9,16 +9,15 @@ const authMiddleWare = require("./middlwares/authMiddleware")
 const adminMiddleWare = require("./middlwares/adminMiddleware")
 
 //create the server
-const app = express()
+const app = express();
 
 let corsOptions = {
     origin: ['http://localhost:5173'],
 }
 
-app.use(cors(corsOptions))
+app.use(cors(corsOptions));
 
-app.use(express.json())
-
+app.use(express.json());
 
 
 //get all todos
@@ -31,7 +30,7 @@ app.get("/todos", authMiddleWare, async (req, res) => {
         console.log(error)
         res.status(500).json({ message: error.message })
     }
-})
+});
 
 // create new todo
 app.post("/todos", authMiddleWare, adminMiddleWare, async (req, res) => {
@@ -50,7 +49,7 @@ app.post("/todos", authMiddleWare, adminMiddleWare, async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: "Something went wrong" })
     }
-})
+});
 
 // get todo details
 
@@ -63,7 +62,7 @@ app.get("/todos/:id", async (req, res) => {
         res.status(500).json({ message: error.message })
     }
 
-})
+});
 
 // Update specific todo
 
@@ -87,7 +86,7 @@ app.put("/todos/:id", async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message })
     }
-})
+});
 
 //Delete user
 
@@ -106,7 +105,7 @@ app.delete("/todos/:id", async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message })
     }
-})
+});
 
 app.post("/register", async (req, res) => {
     try {
@@ -142,7 +141,7 @@ app.post("/register", async (req, res) => {
     } catch (error) {
         res.status(500).json(error.message)
     }
-})
+});
 
 app.post("/login", async (req, res) => {
     try {
@@ -180,7 +179,7 @@ app.post("/login", async (req, res) => {
         console.log(error)
         res.status(500).json({ message: error.message })
     }
-})
+});
 
 app.get("/profile", authMiddleWare, async (req, res) => {
     try {
@@ -203,4 +202,4 @@ mongoose.connect("mongodb://localhost:27017/todos-app")
         })
     }).catch((err) => {
         console.log(err)
-    })
+    });
