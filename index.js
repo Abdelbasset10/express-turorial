@@ -8,7 +8,6 @@ const jwt = require("jsonwebtoken")
 const authMiddleWare = require("./middlwares/authMiddleware")
 const adminMiddleWare = require("./middlwares/adminMiddleware")
 
-
 //create the server
 const app = express()
 
