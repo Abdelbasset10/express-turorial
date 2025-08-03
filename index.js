@@ -1,6 +1,8 @@
+require("dotenv").config()
 const express = require("express")
 const mongoose = require("mongoose")
 const cors = require("cors")
+
 
 const todosRoutes = require("./routes/todos.routes")
 const authsRoutes = require("./routes/auth.routes")
@@ -21,7 +23,7 @@ app.use("/auth",authsRoutes)
 app.use("",userRoutes)
 
 
-mongoose.connect("mongodb://localhost:27017/todos-app")
+mongoose.connect(process.env.DATABASE_URL)
     .then(() => {
         console.log("Connected to MongoDb...")
         app.listen(5000, () => {

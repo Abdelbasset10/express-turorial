@@ -5,7 +5,7 @@ const authMiddleWare = (req, res, next) => {
     if (token) {
         token = token.split(" ")[1]
         try {
-            const decodedToken = jwt.verify(token, "SECRET_JWT")
+            const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
             
             req.user = decodedToken
             next()
