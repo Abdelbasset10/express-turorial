@@ -2,7 +2,7 @@ const Todo = require("../models/Todo")
 
 const getAllTodos = async (req, res) => {
     try {
-        const todos = await Todo.find()
+        const todos = await Todo.find().populate("user",{name:1,email:1,_id:0})
 
         res.json({ message: "Todos has been fetched successfuly", data: todos })
     } catch (error) {
@@ -13,10 +13,9 @@ const getAllTodos = async (req, res) => {
 
 const createTodo = async (req, res) => {
     try {
-        console.log("post todods", req.user.email)
         const newTodo = new Todo({
             name: req.body.name,
-            createdBy: req.user.email
+            user:req.user.id
         })
 
         await newTodo.save()
@@ -25,13 +24,14 @@ const createTodo = async (req, res) => {
 
         res.json({ message: "Todo has been created succesfully", todos: todos })
     } catch (error) {
+        console.log(error)
         res.status(500).json({ message: "Something went wrong" })
     }
 }
 
 const getTodoDetails = async (req, res) => {
     try {
-        const todo = await Todo.findOne({ _id: req.params.id })
+        const todo = await Todo.findOne({ _id: req.params.id }).populate("user",{name:1})
 
         res.json({ message: "Todo details", todo: todo })
     } catch (error) {
